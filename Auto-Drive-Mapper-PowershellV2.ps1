@@ -5,21 +5,14 @@
 Write-Host "Auto Drive-Mapper Script"
 Write-Host "Please do not close this window"
 
-# Wait a few seconds before start
-start-sleep 2
-
 # Delete all existing drives
 Write-Host "Removing previously mapped drives"
 net use * /delete /y
 start-sleep 2
 
-Write-Host "Mapping scatch to Y and aztec to Z"
-net use Z: \\3tales\aztec
-net use Y: \\3tales\scratch
-
 $letters = 75..90 | %{[char]$_} #Starts lettering from K:
 $existing = Get-psdrive | select -ExpandProperty Name
-$import = import-csv -Path "\\smb\login_script\drives.csv"
+$import = import-csv -Path "\\path\to\drives.csv"
 #$paths = $import.drive #could not use this as it didnt work in Powershell v2
 $paths = $import | select -ExpandProperty drive
 #write-host "paths: "$paths
